@@ -4,10 +4,9 @@ JAVAC = javac
 SRC_PATH = src/com/lcs/
 OUT_PATH = out/
 
-all:complie run
+all:complie
 
 complie:
 	$(JAVAC) $(SRC_PATH)*.java -d out
 run:
-	cd $(OUT_PATH)
-	java Server 8080
+	java out.Server 8080
