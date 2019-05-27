@@ -1,13 +1,12 @@
-
 // 文件名 client.java
-
+package com.lcs;
 import java.net.*;
 import java.io.*;
 
 public class Client {
     public static void main(String[] args) {
-        String serverName = args[0];
-        int port = Integer.parseInt(args[1]);
+        String serverName = "localhost";
+        int port = 8011;
         try {
             System.out.println("连接到主机：" + serverName + " ，端口号：" + port);
             Socket client = new Socket(serverName, port);

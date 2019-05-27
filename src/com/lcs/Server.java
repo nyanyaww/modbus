@@ -1,5 +1,5 @@
 // 文件名 Server.java
-
+package com.lcs;
 import java.net.*;
 import java.io.*;
 
@@ -33,7 +33,7 @@ public class Server extends Thread {
     }
 
     public static void main(String[] args) {
-        int port = Integer.parseInt(args[0]);
+        int port = 8011;
         try {
             Thread t = new Server(port);
             t.run();
