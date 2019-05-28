@@ -3,11 +3,11 @@ package com.lcs.Server;
 import java.net.*;
 import java.io.*;
 
-public class Server extends Thread {
+public class Server<TODO> extends Thread {
     private ServerSocket serverSocket;
     private int port;
 
-    public Server() throws IOException{
+    public Server() throws IOException {
         this.port = 501;
         serverSocket = new ServerSocket(port);
         serverSocket.setSoTimeout(10000);
@@ -39,6 +39,8 @@ public class Server extends Thread {
             }
         }
     }
+
+    // TODO:明天修改client类，使其能够循环监听
 
     public static void main(String[] args) {
         try {
