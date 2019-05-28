@@ -1,12 +1,20 @@
-// 文件名 Server.java
-package com.lcs;
+package com.lcs.Server;
+
 import java.net.*;
 import java.io.*;
 
 public class Server extends Thread {
     private ServerSocket serverSocket;
+    private int port;
+
+    public Server() throws IOException{
+        this.port = 501;
+        serverSocket = new ServerSocket(port);
+        serverSocket.setSoTimeout(10000);
+    }
 
     public Server(int port) throws IOException {
+        this.port = port;
         serverSocket = new ServerSocket(port);
         serverSocket.setSoTimeout(10000);
     }
@@ -33,9 +41,8 @@ public class Server extends Thread {
     }
 
     public static void main(String[] args) {
-        int port = 8011;
         try {
-            Thread t = new Server(port);
+            Thread t = new Server();
             t.run();
         } catch (IOException e) {
             e.printStackTrace();
