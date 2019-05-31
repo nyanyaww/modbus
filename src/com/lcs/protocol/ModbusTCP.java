@@ -26,5 +26,6 @@ public class ModbusTCP {
     public static void main(String[] args) {
         ModbusTCP modbusTCP = new ModbusTCP();
         modbusTCP.setAddr((char) 0x01);
+        System.out.print(Integer.toHexString(modbusTCP.getAddr()));
     }
 }
