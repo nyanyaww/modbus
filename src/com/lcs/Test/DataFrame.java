@@ -1,7 +1,6 @@
 package com.lcs.Test;
 
-import java.util.Arrays;
-import java.util.Vector;
+import java.util.*;
 
 /**
  * @author nyanyaww
@@ -10,6 +9,16 @@ import java.util.Vector;
  * @create 2019-05-31 17:19
  **/
 public class DataFrame {
+//
+//    static class baseFrame {
+//        private String addr;
+//        private String functionCode;
+//    }
+//
+//    static class Coil{
+//        private
+//    }
+
 
     static class Request {
         private char addr;
@@ -66,22 +75,104 @@ public class DataFrame {
             this.request = request;
         }
 
-        public String ans() {
-            int i = 0;
-            for (i = 0; i < request.length(); i += 2) {
-                System.out.print(request.charAt(i));
-                System.out.println(request.charAt(i + 1));
-            }
-            return request;
+        public void initParser(){
+            Queue<Integer> a= new Queue<Integer>() {
+                @Override
+                public boolean add(Integer integer) {
+                    return false;
+                }
+
+                @Override
+                public boolean offer(Integer integer) {
+                    return false;
+                }
+
+                @Override
+                public Integer remove() {
+                    return null;
+                }
+
+                @Override
+                public Integer poll() {
+                    return null;
+                }
+
+                @Override
+                public Integer element() {
+                    return null;
+                }
+
+                @Override
+                public Integer peek() {
+                    return null;
+                }
+
+                @Override
+                public int size() {
+                    return 0;
+                }
+
+                @Override
+                public boolean isEmpty() {
+                    return false;
+                }
+
+                @Override
+                public boolean contains(Object o) {
+                    return false;
+                }
+
+                @Override
+                public Iterator<Integer> iterator() {
+                    return null;
+                }
+
+                @Override
+                public Object[] toArray() {
+                    return new Object[0];
+                }
+
+                @Override
+                public <T> T[] toArray(T[] a) {
+                    return null;
+                }
+
+                @Override
+                public boolean remove(Object o) {
+                    return false;
+                }
+
+                @Override
+                public boolean containsAll(Collection<?> c) {
+                    return false;
+                }
+
+                @Override
+                public boolean addAll(Collection<? extends Integer> c) {
+                    return false;
+                }
+
+                @Override
+                public boolean removeAll(Collection<?> c) {
+                    return false;
+                }
+
+                @Override
+                public boolean retainAll(Collection<?> c) {
+                    return false;
+                }
+
+                @Override
+                public void clear() {
+
+                }
+            } ;
+            System.out.println();
         }
 
-        public void test() {
-            System.out.println(StringToHex("13"));
-        }
 
-
-        public int StringToHex(String s) {
-            int ans = (s.charAt(0) - '0') * 10 + s.charAt(1) - '0';
+        public int StringToHex(char a, char b) {
+            int ans = (a - '0') * 10 + b - '0';
             return ans;
         }
     }
@@ -96,7 +187,6 @@ public class DataFrame {
 //        System.out.println(request.getRequestTest());
 
         Response response = new Response(request.getRequestTest());
-        response.test();
 
     }
 
