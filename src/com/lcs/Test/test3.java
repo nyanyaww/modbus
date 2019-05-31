@@ -13,26 +13,26 @@ import java.util.*;
 class test3 {
 
     public static void main(String[] args) {
-        Byte addr = 0x1F;
-        Byte functionCode = 0x08;
-        Byte[] registerStartAddr = {0x00, 0x04};
-        Byte[] registerNumbers = {0x00, 0x02};
+//        Byte addr = 0x1F;
+//        Byte functionCode = 0x08;
+//        Byte[] registerStartAddr = {0x00, 0x04};
+//        Byte[] registerNumbers = {0x00, 0x02};
+//
+//        Vector<Byte> HHH = new Vector<>();
+//        {
+//            HHH.add(addr);
+//            HHH.add(functionCode);
+//
+//            HHH.add(registerStartAddr[0]);
+//            HHH.add(registerStartAddr[1]);
+//
+//            HHH.add(registerNumbers[0]);
+//            HHH.add(registerNumbers[1]);
+//        }
+//
+//        System.out.println(byteToHex(HHH.get(0)));
 
-        Vector<Byte> HHH = new Vector<>();
-        {
-            HHH.add(addr);
-            HHH.add(functionCode);
-
-            HHH.add(registerStartAddr[0]);
-            HHH.add(registerStartAddr[1]);
-
-            HHH.add(registerNumbers[0]);
-            HHH.add(registerNumbers[1]);
-        }
-
-        System.out.println(byteToHex(HHH.get(0)));
-
-
+        System.out.println(3%8);
     }
 
     public static String byteToHex(byte bytes) {
