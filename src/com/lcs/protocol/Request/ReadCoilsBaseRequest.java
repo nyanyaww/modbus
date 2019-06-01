@@ -10,8 +10,8 @@ import com.lcs.Test.HexConvert;
  * @create 2019-06-01 23:46
  **/
 public class ReadCoilsBaseRequest extends BaseRequest {
-    public ReadCoilsBaseRequest(char clientAddr, char startAddr, char dataLength) {
-        super(clientAddr, startAddr, dataLength);
+    public ReadCoilsBaseRequest(char clientId, char startAddr, char dataLength) {
+        super(clientId, startAddr, dataLength);
     }
 
     public char getFunctionCode(){

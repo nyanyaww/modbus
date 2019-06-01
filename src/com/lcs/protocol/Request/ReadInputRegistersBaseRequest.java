@@ -10,8 +10,8 @@ import com.lcs.Test.FunctionCode;
  **/
 public class ReadInputRegistersBaseRequest extends BaseRequest {
 
-    public ReadInputRegistersBaseRequest(char clientAddr, char startAddr, char dataLength) {
-        super(clientAddr, startAddr, dataLength);
+    public ReadInputRegistersBaseRequest(char clientId, char startAddr, char dataLength) {
+        super(clientId, startAddr, dataLength);
     }
 
     @Override

@@ -11,12 +11,12 @@ import com.lcs.Test.HexConvert;
  * @create 2019-06-01 23:28
  **/
 public class BaseRequest {
-    private char clientAddr;        // 从机地址
+    private char clientId;        // 从机地址
     private char startAddr;         // 起始地址
     private char dataLength;        // 数据长度
 
-    public BaseRequest(char clientAddr, char startAddr, char dataLength) {
-        this.clientAddr = clientAddr;
+    public BaseRequest(char clientId, char startAddr, char dataLength) {
+        this.clientId = clientId;
         this.startAddr = startAddr;
         this.dataLength = dataLength;
     }
@@ -28,7 +28,7 @@ public class BaseRequest {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append(StringUtil.charToStringIbit(clientAddr));
+        sb.append(StringUtil.charToStringIbit(clientId));
         sb.append(StringUtil.charToStringIbit(getFunctionCode()));
         sb.append(StringUtil.charToStringIIbit(startAddr));
         sb.append(StringUtil.charToStringIIbit(dataLength));

@@ -7,4 +7,11 @@ package com.lcs.protocol.Response;
  * @create 2019-06-02 00:05
  **/
 public class BaseResponse {
+    private char clientId;
+    private char[] data;
+
+    public BaseResponse(char clientId, char[] data) {
+        this.clientId = clientId;
+        this.data = data;
+    }
 }

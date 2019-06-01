@@ -9,8 +9,8 @@ import com.lcs.Test.FunctionCode;
  * @create 2019-06-01 23:49
  **/
 public class WriteCoilRequest extends BaseRequest {
-    public WriteCoilRequest(char clientAddr, char startAddr, char dataLength) {
-        super(clientAddr, startAddr, dataLength);
+    public WriteCoilRequest(char clientId, char startAddr, char dataLength) {
+        super(clientId, startAddr, dataLength);
     }
 
     @Override

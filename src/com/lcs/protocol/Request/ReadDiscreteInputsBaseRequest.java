@@ -10,8 +10,8 @@ import com.lcs.Test.HexConvert;
  * @create 2019-06-01 23:47
  **/
 public class ReadDiscreteInputsBaseRequest extends BaseRequest {
-    public ReadDiscreteInputsBaseRequest(char clientAddr, char startAddr, char dataLength) {
-        super(clientAddr, startAddr, dataLength);
+    public ReadDiscreteInputsBaseRequest(char clientId, char startAddr, char dataLength) {
+        super(clientId, startAddr, dataLength);
     }
 
     @Override

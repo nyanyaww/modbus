@@ -10,8 +10,8 @@ import com.lcs.Test.FunctionCode;
  **/
 public class WriteRegisterRequest extends BaseRequest {
 
-    public WriteRegisterRequest(char clientAddr, char startAddr, char dataLength) {
-        super(clientAddr, startAddr, dataLength);
+    public WriteRegisterRequest(char clientId, char startAddr, char dataLength) {
+        super(clientId, startAddr, dataLength);
     }
 
     @Override

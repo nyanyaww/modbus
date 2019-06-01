@@ -9,8 +9,8 @@ import com.lcs.Test.FunctionCode;
  * @create 2019-06-01 23:48
  **/
 public class ReadHoldingRegistersBaseRequest extends BaseRequest {
-    public ReadHoldingRegistersBaseRequest(char clientAddr, char startAddr, char dataLength) {
-        super(clientAddr, startAddr, dataLength);
+    public ReadHoldingRegistersBaseRequest(char clientId, char startAddr, char dataLength) {
+        super(clientId, startAddr, dataLength);
     }
 
     @Override
