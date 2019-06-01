@@ -23,7 +23,7 @@ public class FunctionCode {
         return Integer.toString(code & 0xff);
     }
 
-    public static void main() {
+    public static void main(String[] args) {
         System.out.println(FunctionCode.READ_COILS);
     }
 }

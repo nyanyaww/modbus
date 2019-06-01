@@ -31,8 +31,12 @@ class test3 {
 //        }
 //
 //        System.out.println(byteToHex(HHH.get(0)));
+        byte a =89;
+        String
+        System.out.println(a & 0xff);
+        if()
+        System.out.println((a & 0xff) - 256);
 
-        System.out.println(3%8);
     }
 
     public static String byteToHex(byte bytes) {
