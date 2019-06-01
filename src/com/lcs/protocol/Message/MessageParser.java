@@ -25,9 +25,6 @@ public class MessageParser {
         byte[] s = HexConvert.hexStringToBytes(request);
         String dehandleString = HexConvert.binaryToHexString(s);
         String[] sss = dehandleString.split(" ");
-        System.out.println("数据的解包，16进制转化");
-        System.out.println(dehandleString);
-
 
         clientId = sss[0];
         functionCode = sss[1];
@@ -40,8 +37,16 @@ public class MessageParser {
         System.out.println(dataLength);
     }
 
+
+    public void toasd(){
+        int i = Integer.parseInt(startAddr,16);//16进制
+        System.out.println(Integer.toBinaryString(i));//2进制
+    }
+
     public static void main(String[] args) {
         MessageParser messageParser = new MessageParser("010100130015");
         messageParser.preHandle();
+        messageParser.toasd();
+        System.out.println(Integer.parseInt("1",2));
     }
 }
