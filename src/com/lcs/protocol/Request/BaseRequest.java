@@ -1,6 +1,6 @@
-package com.lcs.protocol;
+package com.lcs.protocol.Request;
 
-import Util.StringUtil;
+import com.lcs.Util.StringUtil;
 import com.lcs.Test.FunctionCode;
 import com.lcs.Test.HexConvert;
 
@@ -10,12 +10,12 @@ import com.lcs.Test.HexConvert;
  * @description 请求的封装
  * @create 2019-06-01 23:28
  **/
-public class Request {
+public class BaseRequest {
     private char clientAddr;        // 从机地址
     private char startAddr;         // 起始地址
     private char dataLength;        // 数据长度
 
-    public Request(char clientAddr, char startAddr, char dataLength) {
+    public BaseRequest(char clientAddr, char startAddr, char dataLength) {
         this.clientAddr = clientAddr;
         this.startAddr = startAddr;
         this.dataLength = dataLength;
@@ -40,7 +40,7 @@ public class Request {
         char functionCode = 0x01;
         char sAddr = 0x0013;
         char inffo = 0x0000;
-        Request re = new Request(clientAddr, sAddr, inffo);
+        BaseRequest re = new BaseRequest(clientAddr, sAddr, inffo);
         System.out.println("数据的封装");
         System.out.println(re.toString());
 

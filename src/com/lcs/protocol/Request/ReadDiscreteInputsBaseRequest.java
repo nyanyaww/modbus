@@ -1,4 +1,4 @@
-package com.lcs.protocol;
+package com.lcs.protocol.Request;
 
 import com.lcs.Test.FunctionCode;
 import com.lcs.Test.HexConvert;
@@ -9,8 +9,8 @@ import com.lcs.Test.HexConvert;
  * @description 读取离散量输入 功能码02
  * @create 2019-06-01 23:47
  **/
-public class ReadDiscreteInputsRequest extends Request{
-    public ReadDiscreteInputsRequest(char clientAddr, char startAddr, char dataLength) {
+public class ReadDiscreteInputsBaseRequest extends BaseRequest {
+    public ReadDiscreteInputsBaseRequest(char clientAddr, char startAddr, char dataLength) {
         super(clientAddr, startAddr, dataLength);
     }
 
@@ -22,7 +22,7 @@ public class ReadDiscreteInputsRequest extends Request{
         char clientAddr = 0x01;
         char sAddr = 0x0013;
         char inffo = 0x0000;
-        ReadDiscreteInputsRequest re = new ReadDiscreteInputsRequest(clientAddr, sAddr, inffo);
+        ReadDiscreteInputsBaseRequest re = new ReadDiscreteInputsBaseRequest(clientAddr, sAddr, inffo);
         System.out.println("数据的封装");
         System.out.println(re.toString());
 

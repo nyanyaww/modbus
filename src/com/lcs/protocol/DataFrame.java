@@ -1,9 +1,7 @@
 package com.lcs.protocol;
 
-import Util.StringUtil;
+import com.lcs.Util.StringUtil;
 import com.lcs.Test.HexConvert;
-
-import java.util.*;
 
 /**
  * @author nyanyaww
