@@ -8,8 +8,8 @@ import com.lcs.Test.FunctionCode;
  * @description 读取保持寄存器 功能码03
  * @create 2019-06-01 23:48
  **/
-public class ReadHoldingRegistersBaseRequest extends BaseRequest {
-    public ReadHoldingRegistersBaseRequest(char clientId, char startAddr, char dataLength) {
+public class ReadHoldingRegistersRequest extends BaseRequest {
+    public ReadHoldingRegistersRequest(char clientId, char startAddr, char dataLength) {
         super(clientId, startAddr, dataLength);
     }
 

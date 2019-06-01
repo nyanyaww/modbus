@@ -10,6 +10,10 @@ public class BaseResponse {
     private char clientId;
     private char[] data;
 
+    public BaseResponse(char clientId) {
+        this.clientId = clientId;
+    }
+
     public BaseResponse(char clientId, char[] data) {
         this.clientId = clientId;
         this.data = data;

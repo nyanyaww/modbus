@@ -8,9 +8,9 @@ import com.lcs.Test.FunctionCode;
  * @description 读取输入寄存器 功能码04
  * @create 2019-06-01 23:49
  **/
-public class ReadInputRegistersBaseRequest extends BaseRequest {
+public class ReadInputRegistersRequest extends BaseRequest {
 
-    public ReadInputRegistersBaseRequest(char clientId, char startAddr, char dataLength) {
+    public ReadInputRegistersRequest(char clientId, char startAddr, char dataLength) {
         super(clientId, startAddr, dataLength);
     }
 
