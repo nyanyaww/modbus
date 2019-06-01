@@ -1,4 +1,4 @@
-package com.lcs.Test;
+package com.lcs.code;
 
 /**
  * @author nyanyaww

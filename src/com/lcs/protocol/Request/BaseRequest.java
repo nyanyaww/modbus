@@ -1,7 +1,7 @@
 package com.lcs.protocol.Request;
 
 import com.lcs.Util.StringUtil;
-import com.lcs.Test.FunctionCode;
+import com.lcs.code.FunctionCode;
 import com.lcs.Test.HexConvert;
 
 /**
@@ -39,7 +39,7 @@ public class BaseRequest {
         char clientAddr = 0x01;
         char functionCode = 0x01;
         char sAddr = 0x0013;
-        char inffo = 0x0000;
+        char inffo = 0x0015;
         BaseRequest re = new BaseRequest(clientAddr, sAddr, inffo);
         System.out.println("数据的封装");
         System.out.println(re.toString());

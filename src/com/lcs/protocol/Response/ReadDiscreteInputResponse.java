@@ -1,8 +1,5 @@
 package com.lcs.protocol.Response;
 
-import com.lcs.Test.FunctionCode;
-import com.lcs.Util.StringUtil;
-
 /**
  * @author nyanyaww
  * @program modbus

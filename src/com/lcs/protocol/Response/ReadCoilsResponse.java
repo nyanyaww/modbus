@@ -1,7 +1,6 @@
 package com.lcs.protocol.Response;
 
-import com.lcs.Test.FunctionCode;
-import com.lcs.Test.HexConvert;
+import com.lcs.code.FunctionCode;
 import com.lcs.Util.StringUtil;
 
 /**

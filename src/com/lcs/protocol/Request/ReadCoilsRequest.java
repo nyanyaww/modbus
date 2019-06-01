@@ -1,6 +1,6 @@
 package com.lcs.protocol.Request;
 
-import com.lcs.Test.FunctionCode;
+import com.lcs.code.FunctionCode;
 import com.lcs.Test.HexConvert;
 
 /**

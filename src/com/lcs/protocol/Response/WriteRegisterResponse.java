@@ -1,6 +1,6 @@
 package com.lcs.protocol.Response;
 
-import com.lcs.Test.FunctionCode;
+import com.lcs.code.FunctionCode;
 
 /**
  * @author nyanyaww
