@@ -1,11 +1,12 @@
 package com.lcs.Test;
 
 /**
- * Created by wly on 2018/4/17.
+ * @description 这个类是一个工具类，用于做16进制和字符串的转换
+ * @create 2019-06-01 20:40
  */
 public class HexConvert {
 
-    public static String convertStringToHex(String str) {
+    public static String stringToHex(String str) {
 
         char[] chars = str.toCharArray();
 
@@ -17,7 +18,7 @@ public class HexConvert {
         return hex.toString();
     }
 
-    public static String convertHexToString(String hex) {
+    public static String hexToString(String hex) {
 
         StringBuilder sb = new StringBuilder();
         StringBuilder sb2 = new StringBuilder();
@@ -62,7 +63,7 @@ public class HexConvert {
     }
 
     //将字节数组转换为16进制字符串
-    public static String BinaryToHexString(byte[] bytes) {
+    public static String binaryToHexString(byte[] bytes) {
         String hexStr = "0123456789ABCDEF";
         String result = "";
         String hex = "";
@@ -75,20 +76,18 @@ public class HexConvert {
     }
 
     public static void main(String[] args) {
-
-
         System.out.println("======ASCII码转换为16进制======");
         String str = "*00007VERSION\\n1$";
         System.out.println("字符串: " + str);
-        String hex = HexConvert.convertStringToHex(str);
+        String hex = HexConvert.stringToHex(str);
         System.out.println("====转换为16进制=====" + hex);
 
         System.out.println("======16进制转换为ASCII======");
         System.out.println("Hex : " + hex);
-        System.out.println("ASCII : " + HexConvert.convertHexToString(hex));
+        System.out.println("ASCII : " + HexConvert.hexToString(hex));
 
         byte[] bytes = HexConvert.hexStringToBytes(hex);
 
-        System.out.println(HexConvert.BinaryToHexString(bytes));
+        System.out.println(HexConvert.binaryToHexString(bytes));
     }
 }
