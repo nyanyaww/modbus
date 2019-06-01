@@ -1,5 +1,7 @@
 package com.lcs.protocol.Response;
 
+import com.lcs.Test.FunctionCode;
+
 /**
  * @author nyanyaww
  * @program modbus
@@ -7,8 +9,8 @@ package com.lcs.protocol.Response;
  * @create 2019-06-02 00:05
  **/
 public class BaseResponse {
-    private char clientId;
-    private char[] data;
+    char clientId;
+    char[] data;
 
     public BaseResponse(char clientId) {
         this.clientId = clientId;
@@ -17,5 +19,9 @@ public class BaseResponse {
     public BaseResponse(char clientId, char[] data) {
         this.clientId = clientId;
         this.data = data;
+    }
+
+    public char getFunctionCode() {
+        return FunctionCode.READ_COILS;
     }
 }

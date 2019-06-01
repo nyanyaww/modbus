@@ -14,7 +14,8 @@ public class ReadCoilsRequest extends BaseRequest {
         super(clientId, startAddr, dataLength);
     }
 
-    public char getFunctionCode(){
+    @Override
+    public char getFunctionCode() {
         return FunctionCode.READ_COILS;
     }
 
