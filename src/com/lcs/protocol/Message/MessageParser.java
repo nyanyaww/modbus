@@ -15,14 +15,11 @@ import java.util.Set;
  **/
 public class MessageParser {
     private String request;
-    private String clientId;
-    private String functionCode;
-    private String startAddr;
-    private String dataLength;
     private Map<String, Character> stringMap = new HashMap<>();
 
     public MessageParser(String request) {
         this.request = request;
+        preHandle();
     }
 
     public void preHandle() {
@@ -30,17 +27,15 @@ public class MessageParser {
         String dehandleString = HexConvert.binaryToHexString(s);
         String[] sss = dehandleString.split(" ");
 
-        clientId = sss[0];
-        functionCode = sss[1];
-        startAddr = sss[2] + sss[3];
-        dataLength = sss[4] + sss[5];
+        String clientId = sss[0];
+        String functionCode = sss[1];
+        String startAddr = sss[2] + sss[3];
+        String dataLength = sss[4] + sss[5];
 
-        char temp = 11;
-        stringMap.put("clientId", temp);
-        System.out.println(stringMap.get("clientId"));
-//        stringMap.put("functionCode", (char) Integer.parseInt(functionCode, 16));
-//        stringMap.put("startAddr", (char) Integer.parseInt(startAddr, 16));
-//        stringMap.put("dataLength", (char) Integer.parseInt(dataLength, 16));
+        stringMap.put("clientId", (char) Integer.parseInt(clientId, 16));
+        stringMap.put("functionCode", (char) Integer.parseInt(functionCode, 16));
+        stringMap.put("startAddr", (char) Integer.parseInt(startAddr, 16));
+        stringMap.put("dataLength", (char) Integer.parseInt(dataLength, 16));
 
     }
 
@@ -50,9 +45,7 @@ public class MessageParser {
 
     public static void main(String[] args) {
         MessageParser messageParser = new MessageParser("010100130015");
-        messageParser.preHandle();
-        MessageMap messageMap = new MessageMap();
-//        messageMap.message = messageParser.getStringMap();
+//        messageParser.preHandle();
         System.out.println(messageParser.getStringMap());
     }
 }

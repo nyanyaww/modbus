@@ -11,7 +11,7 @@ import com.lcs.Test.HexConvert;
  * @create 2019-06-01 23:28
  **/
 public class BaseRequest {
-    private char clientId;        // 从机地址
+    private char clientId;          // 从机地址
     private char startAddr;         // 起始地址
     private char dataLength;        // 数据长度
 
