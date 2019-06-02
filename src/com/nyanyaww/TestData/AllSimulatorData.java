@@ -1,5 +1,8 @@
 package com.nyanyaww.TestData;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author nyanyaww
  * @program modbus
@@ -7,10 +10,11 @@ package com.nyanyaww.TestData;
  * @create 2019-06-02 14:10
  **/
 public class AllSimulatorData {
-    private byte[] coilData;
-    private byte[] discreteInputData;
+    private char[] coilData;
+    private char[] discreteInputData;
     private char[] holdingRegisterData;
     private char[] inputRegisterData;
+    private Map<String, char[]> clientData = new HashMap<>();
 
     public AllSimulatorData() {
         CoilsData coilsData = new CoilsData();
@@ -21,13 +25,22 @@ public class AllSimulatorData {
         this.discreteInputData = discreteInputData.getDiscreteInputNo();
         this.holdingRegisterData = holdingRegisterData.getHoldingRegisterNo();
         this.inputRegisterData = inputRegisterData.getInputRegister();
+        clientData.put("线圈", this.coilData);
+        clientData.put("离散量输入", this.discreteInputData);
+        clientData.put("保持寄存器", this.holdingRegisterData);
+        clientData.put("输入寄存器", this.inputRegisterData);
+
     }
 
-    public byte[] getCoilData() {
+    public Map<String, char[]> getClientData() {
+        return clientData;
+    }
+
+    public char[] getCoilData() {
         return coilData;
     }
 
-    public byte[] getDiscreteInputData() {
+    public char[] getDiscreteInputData() {
         return discreteInputData;
     }
 
@@ -41,16 +54,17 @@ public class AllSimulatorData {
 
     public static void main(String[] args) {
         AllSimulatorData allSimulatorData = new AllSimulatorData();
+        Map<String,char[]> ans = allSimulatorData.getClientData();
         for (int i = 0; i < 2000; i++) {
-            System.out.print(allSimulatorData.getCoilData()[i]);
+            System.out.print(Integer.valueOf(ans.get("线圈")[i]));
             System.out.print(" ");
-            System.out.print(allSimulatorData.getDiscreteInputData()[i]);
+            System.out.print(Integer.valueOf(ans.get("离散量输入")[i]));
             System.out.println();
         }
         for (int i = 0; i < 125; i++) {
-            System.out.print(allSimulatorData.getHoldingRegisterData()[i]);
+            System.out.print(Integer.valueOf(ans.get("保持寄存器")[i]));
             System.out.print(" ");
-            System.out.print(allSimulatorData.getInputRegisterData()[i]);
+            System.out.print(ans.get("输入寄存器")[i]);
             System.out.println();
         }
     }

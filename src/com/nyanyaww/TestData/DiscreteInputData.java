@@ -9,7 +9,7 @@ import java.util.Random;
  * @create 2019-06-02 13:57
  **/
 public class DiscreteInputData {
-    private byte[] discreteInputNo = new byte[2000];
+    private char[] discreteInputNo = new char[2000];
 
     public DiscreteInputData() {
         init();
@@ -18,17 +18,17 @@ public class DiscreteInputData {
     public void init() {
         Random random = new Random();
         for (int i = 0; i < 2000; i++) {
-            discreteInputNo[i] = (byte) (random.nextBoolean() ? 1 : 0);
+            discreteInputNo[i] = (char) (random.nextBoolean() ? 1 : 0);
 //            System.out.println(discreteInputNo[i]);
         }
 
     }
 
-    public byte[] getDiscreteInputNo() {
+    public char[] getDiscreteInputNo() {
         return discreteInputNo;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         DiscreteInputData discreteInputData = new DiscreteInputData();
     }
 }

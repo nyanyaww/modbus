@@ -18,6 +18,7 @@ public class MessageHandle {
     private char startAddr;         // 起始地址
     private char dataLength;        // 数据长度
 
+
     public MessageHandle(char clientId, char functionCode, char startAddr, char dataLength) {
         this.clientId = clientId;
         this.functionCode = functionCode;

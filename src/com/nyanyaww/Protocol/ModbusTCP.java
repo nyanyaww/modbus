@@ -7,6 +7,8 @@ package com.nyanyaww.Protocol;
  * 这只是作业中使用的所谓的modbustcp协议，实际的tcp不需要crc校验
  * @create 2019-05-30 23:41
  **/
+
+// TODO:需要重大改动
 public class ModbusTCP {
     private char addr;
     public ModbusTCP()

@@ -1,6 +1,7 @@
 package com.nyanyaww.Protocol.Message;
 
 import com.nyanyaww.Test.HexConvert;
+import com.nyanyaww.TestData.AllSimulatorData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +43,7 @@ public class MessageParser {
     }
 
     public static void main(String[] args) {
+        AllSimulatorData allSimulatorData = new AllSimulatorData();
         MessageParser messageParser = new MessageParser("010100130015");
 //        messageParser.preHandle();
         System.out.println(messageParser.getStringMap());
