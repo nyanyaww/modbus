@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * @author nyanyaww
  * @program modbus
- * @description 对解包之后的处理
+ * @description 对解包之后的处理，这个类是提供给下位机的
  * @create 2019-06-02 01:09
  **/
 public class MessageHandle {

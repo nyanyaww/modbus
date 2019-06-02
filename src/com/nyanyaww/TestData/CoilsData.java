@@ -25,6 +25,10 @@ public class CoilsData {
 
     }
 
+    public byte[] getCoilNo() {
+        return coilNo;
+    }
+
     public static void main(String[] args){
         CoilsData coilsData = new CoilsData();
     }
