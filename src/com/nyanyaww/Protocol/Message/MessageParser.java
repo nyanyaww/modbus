@@ -31,10 +31,10 @@ public class MessageParser {
         String startAddr = sss[2] + sss[3];
         String dataLength = sss[4] + sss[5];
 
-        stringMap.put("clientId", (char) Integer.parseInt(clientId, 16));
-        stringMap.put("functionCode", (char) Integer.parseInt(functionCode, 16));
-        stringMap.put("startAddr", (char) Integer.parseInt(startAddr, 16));
-        stringMap.put("dataLength", (char) Integer.parseInt(dataLength, 16));
+        stringMap.put("从机地址", (char) Integer.parseInt(clientId, 16));
+        stringMap.put("功能码", (char) Integer.parseInt(functionCode, 16));
+        stringMap.put("起始地址", (char) Integer.parseInt(startAddr, 16));
+        stringMap.put("请求长度", (char) Integer.parseInt(dataLength, 16));
 
     }
 

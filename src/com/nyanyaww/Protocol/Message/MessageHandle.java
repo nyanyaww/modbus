@@ -1,5 +1,6 @@
 package com.nyanyaww.Protocol.Message;
 
+import com.nyanyaww.TestData.AllSimulatorData;
 import com.nyanyaww.code.FunctionCode;
 import com.nyanyaww.Protocol.Request.WriteCoilRequest;
 import com.nyanyaww.Protocol.Request.WriteRegisterRequest;
@@ -13,17 +14,19 @@ import java.util.Map;
  * @create 2019-06-02 01:09
  **/
 public class MessageHandle {
+    private Map<String, char[]> clientData;
     private char clientId;          // 从机地址
     private char functionCode;      // 功能码
     private char startAddr;         // 起始地址
     private char dataLength;        // 数据长度
 
 
-    public MessageHandle(char clientId, char functionCode, char startAddr, char dataLength) {
+    public MessageHandle(char clientId, char functionCode, char startAddr, char dataLength, Map<String, char[]> clientData) {
         this.clientId = clientId;
         this.functionCode = functionCode;
         this.startAddr = startAddr;
         this.dataLength = dataLength;
+        this.clientData = clientData;
     }
 
     public void init() {
@@ -56,10 +59,13 @@ public class MessageHandle {
 
 
     public static void main(String[] args) {
+        AllSimulatorData allSimulatorData = new AllSimulatorData();
+        Map<String, char[]> clientData = allSimulatorData.getClientData();
+
         MessageParser messageParser = new MessageParser("010500130015");
         Map<String, Character> map = messageParser.getStringMap();
-        MessageHandle messageHandle = new MessageHandle(map.get("clientId"), map.get("functionCode"),
-                map.get("startAddr"), map.get("dataLength"));
+        MessageHandle messageHandle = new MessageHandle(map.get("从机地址"), map.get("功能码"),
+                map.get("起始地址"), map.get("请求长度"), clientData);
         messageHandle.init();
     }
 }
