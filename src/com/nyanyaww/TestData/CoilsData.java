@@ -20,7 +20,7 @@ public class CoilsData {
         Random random = new Random();
         for (int i = 0; i < 2000; i++) {
             coilNo[i] = (byte) (random.nextBoolean() ? 1 : 0);
-            System.out.println(coilNo[i]);
+//            System.out.println(coilNo[i]);
         }
 
     }

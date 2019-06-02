@@ -19,7 +19,7 @@ public class HoldingRegisterData {
         Random random = new Random();
         for (int i = 0; i < 125; i++) {
             holdingRegisterNo[i] = (char) random.nextInt(65535);
-            System.out.println(Integer.valueOf(holdingRegisterNo[i]));
+//            System.out.println(Integer.valueOf(holdingRegisterNo[i]));
         }
 
     }

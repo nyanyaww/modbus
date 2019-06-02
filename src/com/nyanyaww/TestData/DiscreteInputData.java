@@ -19,7 +19,7 @@ public class DiscreteInputData {
         Random random = new Random();
         for (int i = 0; i < 2000; i++) {
             discreteInputNo[i] = (byte) (random.nextBoolean() ? 1 : 0);
-            System.out.println(discreteInputNo[i]);
+//            System.out.println(discreteInputNo[i]);
         }
 
     }
