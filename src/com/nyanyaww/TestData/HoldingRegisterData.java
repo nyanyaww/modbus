@@ -28,7 +28,7 @@ public class HoldingRegisterData {
         return holdingRegisterNo;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         HoldingRegisterData holdingRegisterData = new HoldingRegisterData();
 
     }
