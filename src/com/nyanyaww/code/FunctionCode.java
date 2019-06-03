@@ -3,7 +3,7 @@ package com.nyanyaww.code;
 /**
  * @author nyanyaww
  * @program modbus
- * @description 功能码的测试
+ * @description 功能码的表示 使程序可读性变好
  * @create 2019-05-31 00:20
  **/
 public class FunctionCode {
@@ -17,8 +17,4 @@ public class FunctionCode {
     public static String toString(byte code) {
         return Integer.toString(code & 0xff);
     }
-
-//    public static void main(String[] args) {
-//        System.out.println(FunctionCode.READ_COILS);
-//    }
 }
