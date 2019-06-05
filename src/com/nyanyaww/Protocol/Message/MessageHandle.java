@@ -8,7 +8,6 @@ import com.nyanyaww.code.FunctionCode;
 import com.nyanyaww.Protocol.Request.WriteCoilRequest;
 import com.nyanyaww.Protocol.Request.WriteRegisterRequest;
 
-import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -23,7 +22,7 @@ public class MessageHandle {
     private char functionCode;      // 功能码
     private char startAddr;         // 起始地址
     private char dataLength;        // 数据长度
-    static private char[] allcoilsData;
+    static private char[] allCoilsData;
 
 
     public MessageHandle(char clientId, char functionCode, char startAddr, char dataLength, Map<String, char[]> clientData) {
@@ -32,16 +31,17 @@ public class MessageHandle {
         this.startAddr = startAddr;
         this.dataLength = dataLength;
         this.clientData = clientData;
-        allcoilsData = clientData.get("线圈");
+        allCoilsData = clientData.get("线圈");
     }
 
     public void run() {
         switch (functionCode) {
             case FunctionCode.READ_COILS:
-                //TODO:这里其实不对 实际上是8bit的8个线圈值，而这里的16bit数据只有表示了一个值
+                // 先得到线圈对应的二进制的字符串
+                String coilsData = getCoilsData(startAddr, startAddr + dataLength);
+                System.out.println(StringUtil.binaryStringToHexString(coilsData));
                 ReadCoilsResponse readCoilsResponse = new ReadCoilsResponse(clientId,
-                        allcoilsData);
-                System.out.println(readCoilsResponse.toString());
+                        allCoilsData);
                 break;
             case FunctionCode.READ_DISCRETE_INPUTS:
                 System.out.println("0x02");
@@ -91,7 +91,7 @@ public class MessageHandle {
         StringBuilder sb = new StringBuilder();
         char[] returnData = new char[length];
         for (int i = 0; i < length; i++) {
-            returnData[i] = allcoilsData[from + i];
+            returnData[i] = allCoilsData[from + i];
             sb.append(Integer.valueOf(returnData[i]));
         }
         for (int i = length; i < length + 8 - charLength; i++) {
@@ -107,20 +107,17 @@ public class MessageHandle {
         Map<String, char[]> clientData = allSimulatorData.getClientData();
 
         // 上位机请求解析
-        MessageParser messageParser = new MessageParser("010300130013");
+        MessageParser messageParser = new MessageParser("010300130018");
         Map<String, Character> map = messageParser.getStringMap();
         MessageHandle messageHandle = new MessageHandle(map.get("从机地址"), map.get("功能码"),
                 map.get("起始地址"), map.get("请求长度"), clientData);
         messageHandle.run();
 
-        for (int i = 1; i < 24; i++) {
-            String coilsData = messageHandle.getCoilsData(0, i);
-            System.out.println(coilsData);
-            System.out.println(StringUtil.binaryStringToHexString(coilsData));
-        }
-//            for (int i = 0; i < a.length; i++)
-//                System.out.print(Integer.valueOf(a[i]));
 
-//        messageHandle.showData();
+//        for (int i = 1; i < 24; i++) {
+//            String coilsData = messageHandle.getCoilsData(0, i);
+//            System.out.println(coilsData);
+//            System.out.println(StringUtil.binaryStringToHexString(coilsData));
+//        }
     }
 }
