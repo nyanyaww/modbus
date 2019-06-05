@@ -1,5 +1,7 @@
 package com.nyanyaww.Util;
 
+import com.nyanyaww.Test.HexConvert;
+
 import java.util.Vector;
 
 /**
@@ -36,11 +38,11 @@ public class StringUtil {
 
     public static String binaryStringToHexString(String bString) {
 
-        bString = bString.replace(" ", "");//去掉直接从word表格内复制出来的空格
-        bString = bString.replace(" ", "");//去掉英文空格
-        if (bString == null || bString.equals("") || bString.length() % 8 != 0)
+        bString = bString.replace(" ", "");
+        bString = bString.replace(" ", "");
+        if (bString.equals("") || bString.length() % 8 != 0)
             return null;
-        StringBuffer tmp = new StringBuffer();
+        StringBuilder tmp = new StringBuilder();
         int iTmp = 0;
         for (int i = 0; i < bString.length(); i += 4) {
 
@@ -51,5 +53,27 @@ public class StringUtil {
             tmp.append(Integer.toHexString(iTmp));
         }
         return tmp.toString();
+    }
+
+    public static char[] StringToCharX(String str) {
+        int len = str.length();
+        char[] cs = new char[len / 2];
+        int j = 0;
+        for (int i = 0; i < len; i += 2) {
+            cs[j++] = (char)(str.charAt(i) <<8| str.charAt(i + 1));
+        }
+        return cs;
+    }
+
+    public static void main(String[] args) {
+        char[] s = StringToCharX("10ff");
+        System.out.println(Integer.valueOf(s[0]));
+//        System.out.println(s[1]);
+        String test = "123123";
+        System.out.println(test.charAt(0) + "" + test.charAt(2));
+//        System.out.println(HexConvert.hexStringToBytes("10ff")[1]);
+//        System.out.println(HexConvert.hexStringToBytes("10ff")[2]);
+//        System.out.println(HexConvert.hexStringToBytes("10ff")[3]);
+//        System.out.println(HexConvert.hexStringToBytes("10ff")[4]);
     }
 }

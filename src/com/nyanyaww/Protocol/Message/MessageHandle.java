@@ -8,6 +8,7 @@ import com.nyanyaww.code.FunctionCode;
 import com.nyanyaww.Protocol.Request.WriteCoilRequest;
 import com.nyanyaww.Protocol.Request.WriteRegisterRequest;
 
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -39,9 +40,11 @@ public class MessageHandle {
             case FunctionCode.READ_COILS:
                 // 先得到线圈对应的二进制的字符串
                 String coilsData = getCoilsData(startAddr, startAddr + dataLength);
-                System.out.println(StringUtil.binaryStringToHexString(coilsData));
+                String hexData = StringUtil.binaryStringToHexString(coilsData);
+                char[] ans = StringUtil.StringToCharX(hexData);
                 ReadCoilsResponse readCoilsResponse = new ReadCoilsResponse(clientId,
-                        allCoilsData);
+                        ans);
+                System.out.println(readCoilsResponse.toString());
                 break;
             case FunctionCode.READ_DISCRETE_INPUTS:
                 System.out.println("0x02");
@@ -107,7 +110,7 @@ public class MessageHandle {
         Map<String, char[]> clientData = allSimulatorData.getClientData();
 
         // 上位机请求解析
-        MessageParser messageParser = new MessageParser("010300130018");
+        MessageParser messageParser = new MessageParser("010100130013");
         Map<String, Character> map = messageParser.getStringMap();
         MessageHandle messageHandle = new MessageHandle(map.get("从机地址"), map.get("功能码"),
                 map.get("起始地址"), map.get("请求长度"), clientData);
