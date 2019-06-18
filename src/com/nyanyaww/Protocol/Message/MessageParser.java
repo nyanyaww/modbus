@@ -22,7 +22,6 @@ public class MessageParser {
     }
 
     public MessageParser(){
-        ;
     }
 
     public void setRequest(String request) {

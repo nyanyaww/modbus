@@ -18,8 +18,8 @@ public class CrcCheck {
             byte[] data = gprsstr.getBytes();
             crc = 0x0000FFFF;
             for (int i = 0; i < strlength; i++) {
-                tc = (int) (crc >>> 8);
-                crc = (int) (tc ^ data[i]);
+                tc = crc >>> 8;
+                crc = tc ^ data[i];
                 for (r = 0; r < 8; r++) {
                     sbit = (byte) (crc & 0x00000001);
                     crc >>>= 1;

@@ -1,46 +1,49 @@
 package com.nyanyaww.Client;
 
-import java.net.*;
-import java.io.*;
+/**
+ * @author nyanyaww
+ * @program modbus
+ * @description
+ * @create 2019-06-19 01:13
+ **/
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class Client {
-    private String ip;
+    private String ipAddr;
     private int port;
-
-    private Client() {
-        this.ip = "localhost";
-        this.port = 501;
-    }
-
-    void init() {
+    public Client(String ipAddr,int port){
 
     }
 
-    private void run() {
+    public static void main(String[] args) {
         try {
-            System.out.println("连接到主机：" + ip + " ，端口号：" + port);
-            Socket client = new Socket(ip, port);
-            System.out.println("远程主机地址：" + client.getRemoteSocketAddress());
+            Socket s = new Socket("127.0.0.1",8888);
 
+            //构建IO
+            InputStream is = s.getInputStream();
+            OutputStream os = s.getOutputStream();
 
-            OutputStream outToServer = client.getOutputStream();
-            DataOutputStream out = new DataOutputStream(outToServer);
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os));
+            //向服务器端发送一条消息
+            bw.write("测试客户端和服务器通信，服务器接收到消息返回到客户端\n");
+            bw.flush();
 
-            out.writeUTF("Hello from " + client.getLocalSocketAddress());
-            InputStream inFromServer = client.getInputStream();
-            DataInputStream in = new DataInputStream(inFromServer);
-            System.out.println("服务器响应： " + in.readUTF());
-
-
-            client.close();
+            //读取服务器返回的消息
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            String mess = br.readLine();
+            System.out.println("服务器："+mess);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-
-    public static void main(String[] args) {
-        Client client = new Client();
-        client.run();
     }
 }

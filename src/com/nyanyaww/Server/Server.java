@@ -1,51 +1,34 @@
 package com.nyanyaww.Server;
 
-import java.net.*;
-import java.io.*;
+/**
+ * @author nyanyaww
+ * @program modbus
+ * @description
+ * @create 2019-06-19 01:12
+ **/
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
 
-public class Server<TODO> extends Thread {
-    private ServerSocket serverSocket;
-    private int port;
-
-    public Server() throws IOException {
-        this.port = 501;
-        serverSocket = new ServerSocket(port);
-        serverSocket.setSoTimeout(10000);
-    }
-
-    public Server(int port) throws IOException {
-        this.port = port;
-        serverSocket = new ServerSocket(port);
-        serverSocket.setSoTimeout(10000);
-    }
-
-    public void run() {
-        while (true) {
-            try {
-                System.out.println("等待远程连接，端口号为：" + serverSocket.getLocalPort() + "...");
-                Socket server = serverSocket.accept();
-                System.out.println("远程主机地址：" + server.getRemoteSocketAddress());
-                DataInputStream in = new DataInputStream(server.getInputStream());
-                System.out.println(in.readUTF());
-                DataOutputStream out = new DataOutputStream(server.getOutputStream());
-                out.writeUTF("谢谢连接我：" + server.getLocalSocketAddress() + "\nGoodbye!");
-                server.close();
-            } catch (SocketTimeoutException s) {
-                System.out.println("Socket timed out!");
-                break;
-            } catch (IOException e) {
-                e.printStackTrace();
-                break;
-            }
-        }
-    }
-
-    // TODO:明天修改client类，使其能够循环监听
-
+public class Server {
     public static void main(String[] args) {
         try {
-            Thread t = new Server();
-            t.run();
+            ServerSocket ss = new ServerSocket(8888);
+            System.out.println("启动服务器....");
+            Socket s = ss.accept();
+            System.out.println("客户端:"+s.getInetAddress().getLocalHost()+"已连接到服务器");
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
+            //读取客户端发送来的消息
+            String mess = br.readLine();
+            System.out.println("客户端："+mess);
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+            bw.write(mess+"\n");
+            bw.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
