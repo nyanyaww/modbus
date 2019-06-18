@@ -6,31 +6,80 @@ package com.nyanyaww.Server;
  * @description
  * @create 2019-06-19 01:12
  **/
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 
-public class Server {
-    public static void main(String[] args) {
+
+public  class Server extends Thread{
+    ServerSocket server = null;
+    Socket socket = null;
+    public Server(int port) {
         try {
-            ServerSocket ss = new ServerSocket(8888);
-            System.out.println("启动服务器....");
-            Socket s = ss.accept();
-            System.out.println("客户端:"+s.getInetAddress().getLocalHost()+"已连接到服务器");
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
-            //读取客户端发送来的消息
-            String mess = br.readLine();
-            System.out.println("客户端："+mess);
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
-            bw.write(mess+"\n");
-            bw.flush();
+            server = new ServerSocket(port);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    @Override
+    public void run(){
+
+        super.run();
+        try{
+            System.out.println("wait client connect...");
+            socket = server.accept();
+            new sendMessThread().start();//连接并返回socket后，再启用发送消息线程
+            System.out.println(socket.getInetAddress().getHostAddress()+"SUCCESS TO CONNECT...");
+            InputStream in = socket.getInputStream();
+            int len = 0;
+            byte[] buf = new byte[1024];
+            while ((len=in.read(buf))!=-1){
+                System.out.println("client saying: "+new String(buf,0,len));
+            }
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+
+    class sendMessThread extends Thread{
+        @Override
+        public void run(){
+            super.run();
+            Scanner scanner=null;
+            OutputStream out = null;
+            try{
+                if(socket != null){
+                    scanner = new Scanner(System.in);
+                    out = socket.getOutputStream();
+                    String in = "";
+                    do {
+                        in = scanner.next();
+                        out.write(("server saying: "+in).getBytes());
+                        out.flush();//清空缓存区的内容
+                    }while (!in.equals("q"));
+                    scanner.close();
+                    try{
+                        out.close();
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
+                }
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
+
+    //函数入口
+    public static void main(String[] args) {
+        Server server = new Server(1234);
+        server.start();
     }
 }

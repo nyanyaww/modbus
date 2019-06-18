@@ -162,42 +162,42 @@ public class MessageHandle {
     }
 
     public static void main(String[] args) {
-        // 获取仿真数据
-        AllSimulatorData allSimulatorData = new AllSimulatorData();
-        Map<String, char[]> clientData = allSimulatorData.getClientData();
-
-        // 6种功能码的测试
-        String[] testSend = {
-                "010100130013",
-                "010200130013",
-                "010300130003",
-                "010400130003",
-                "010500130013",
-                "010600130013",
-        };
-
-        // 上位机请求解析
-        // 发送数据
-        MessageParser messageParser = new MessageParser();
-        StringBuilder sb = new StringBuilder();
-        StringBuilder stringBuilder = new StringBuilder();
-
-        for (int i = 0; i < testSend.length; i++) {
-            System.out.println("测试" + (i + 1));
-            sb.delete(0, sb.length());
-            sb.append(testSend[i]);
-            sb.append(CrcCheck.crc16(testSend[i]));
-            messageParser.setRequest(sb.toString());
-            System.out.println("发送 " + sb.toString());
-            // 数据解析为字典
-            Map<String, Character> map = messageParser.getStringMap();
-            // 数据处理
-            MessageHandle messageHandle = new MessageHandle(map.get("从机地址"), map.get("功能码"),
-                    map.get("起始地址"), map.get("请求长度"), clientData);
-            stringBuilder.delete(0,stringBuilder.length());
-            stringBuilder.append(messageHandle.packResponse());
-            stringBuilder.append(CrcCheck.crc16(messageHandle.packResponse()));
-            System.out.println("应答 " + stringBuilder.toString());
-        }
+//        // 获取仿真数据
+//        AllSimulatorData allSimulatorData = new AllSimulatorData();
+//        Map<String, char[]> clientData = allSimulatorData.getClientData();
+//
+//        // 6种功能码的测试
+//        String[] testSend = {
+//                "010100130013",
+//                "010200130013",
+//                "010300130003",
+//                "010400130003",
+//                "010500130013",
+//                "010600130013",
+//        };
+//
+//        // 上位机请求解析
+//        // 发送数据
+//        MessageParser messageParser = new MessageParser();
+//        StringBuilder sb = new StringBuilder();
+//        StringBuilder stringBuilder = new StringBuilder();
+//
+//        for (int i = 0; i < testSend.length; i++) {
+//            System.out.println("测试" + (i + 1));
+//            sb.delete(0, sb.length());
+//            sb.append(testSend[i]);
+//            sb.append(CrcCheck.crc16(testSend[i]));
+//            messageParser.setRequest(sb.toString());
+//            System.out.println("发送 " + sb.toString());
+//            // 数据解析为字典
+//            Map<String, Character> map = messageParser.getStringMap();
+//            // 数据处理
+//            MessageHandle messageHandle = new MessageHandle(map.get("从机地址"), map.get("功能码"),
+//                    map.get("起始地址"), map.get("请求长度"), clientData);
+//            stringBuilder.delete(0,stringBuilder.length());
+//            stringBuilder.append(messageHandle.packResponse());
+//            stringBuilder.append(CrcCheck.crc16(messageHandle.packResponse()));
+//            System.out.println("应答 " + stringBuilder.toString());
+//        }
     }
 }

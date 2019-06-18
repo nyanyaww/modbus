@@ -6,44 +6,83 @@ package com.nyanyaww.Client;
  * @description
  * @create 2019-06-19 01:13
  **/
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
-public class Client {
-    private String ipAddr;
-    private int port;
-    public Client(String ipAddr,int port){
+public class Client extends Thread {
 
-    }
+    //定义一个Socket对象
+    Socket socket = null;
 
-    public static void main(String[] args) {
+    public Client(String host, int port) {
         try {
-            Socket s = new Socket("127.0.0.1",8888);
-
-            //构建IO
-            InputStream is = s.getInputStream();
-            OutputStream os = s.getOutputStream();
-
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os));
-            //向服务器端发送一条消息
-            bw.write("测试客户端和服务器通信，服务器接收到消息返回到客户端\n");
-            bw.flush();
-
-            //读取服务器返回的消息
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            String mess = br.readLine();
-            System.out.println("服务器："+mess);
+            //需要服务器的IP地址和端口号，才能获得正确的Socket对象
+            socket = new Socket(host, port);
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+
+    @Override
+    public void run() {
+        //客户端一连接就可以写数据个服务器了
+        new sendMessThread().start();
+        super.run();
+        try {
+            // 读Sock里面的数据
+            InputStream s = socket.getInputStream();
+            byte[] buf = new byte[1024];
+            int len = 0;
+            while ((len = s.read(buf)) != -1) {
+                System.out.println(new String(buf, 0, len));
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //往Socket里面写数据，需要新开一个线程
+    class sendMessThread extends Thread {
+        @Override
+        public void run() {
+            super.run();
+            //写操作
+            Scanner scanner = null;
+            OutputStream os = null;
+            try {
+                scanner = new Scanner(System.in);
+                os = socket.getOutputStream();
+                String in = "";
+                do {
+                    in = scanner.next();
+                    os.write(("" + in).getBytes());
+                    os.flush();
+                } while (!in.equals("bye"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            scanner.close();
+            try {
+                os.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    //函数入口
+    public static void main(String[] args) {
+        //需要服务器的正确的IP地址和端口号
+        Client clientTest = new Client("127.0.0.1", 1234);
+        clientTest.start();
     }
 }
