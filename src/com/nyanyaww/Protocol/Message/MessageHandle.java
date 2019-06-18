@@ -42,7 +42,7 @@ public class MessageHandle {
         allInputRegisterData = clientData.get("输入寄存器");
     }
 
-    public void run() {
+    public String packResponse() {
         switch (functionCode) {
             // 完成
             case FunctionCode.READ_COILS:
@@ -52,8 +52,7 @@ public class MessageHandle {
                 char[] ans = StringUtil.StringToCharX(hexData);
                 ReadCoilsResponse readCoilsResponse = new ReadCoilsResponse(clientId,
                         ans);
-                System.out.println(readCoilsResponse.toString());
-                break;
+                return readCoilsResponse.toString();
             // 完成
             case FunctionCode.READ_DISCRETE_INPUTS:
                 // 先得到线圈对应的二进制的字符串
@@ -63,33 +62,30 @@ public class MessageHandle {
                 char[] ans1 = StringUtil.StringToCharX(discreteInputsHexData);
                 ReadDiscreteInputResponse readDiscreteInputResponse = new ReadDiscreteInputResponse(clientId,
                         ans1);
-                System.out.println(readDiscreteInputResponse.toString());
-                break;
+                return readDiscreteInputResponse.toString();
+
             case FunctionCode.READ_HOLDING_REGISTERS:
                 char[] holdRegister = getHoldRegisterData(startAddr, startAddr + dataLength);
                 ReadHoldingRegisterResponse readHoldingRegisterResponse =
                         new ReadHoldingRegisterResponse(clientId, holdRegister);
-                System.out.println(readHoldingRegisterResponse.toString());
-                break;
+                return readHoldingRegisterResponse.toString();
+
             case FunctionCode.READ_INPUT_REGISTERS:
                 char[] inputRegister = getInputRegisterData(startAddr, startAddr + dataLength);
                 ReadInputRegister readInputRegister =
                         new ReadInputRegister(clientId, inputRegister);
-                System.out.println(readInputRegister.toString());
-                break;
+                return readInputRegister.toString();
 
             // 完成
             case FunctionCode.WRITE_COIL:
                 WriteCoilRequest writeCoilRequest = new WriteCoilRequest(clientId, startAddr, dataLength);
-                System.out.println(writeCoilRequest.toString());
-                break;
+                return writeCoilRequest.toString();
             // 完成
             case FunctionCode.WRITE_REGISTER:
                 WriteRegisterRequest writeRegisterRequest = new WriteRegisterRequest(clientId, startAddr, dataLength);
-                System.out.println(writeRegisterRequest.toString());
-                break;
+                return writeRegisterRequest.toString();
             default:
-                break;
+                return "NULL";
         }
     }
 
@@ -154,6 +150,7 @@ public class MessageHandle {
         }
         return returnData;
     }
+
     // 获取输入寄存器数据
     public char[] getInputRegisterData(int from, int to) {
         int length = to - from;
@@ -169,16 +166,38 @@ public class MessageHandle {
         AllSimulatorData allSimulatorData = new AllSimulatorData();
         Map<String, char[]> clientData = allSimulatorData.getClientData();
 
+        // 6种功能码的测试
+        String[] testSend = {
+                "010100130013",
+                "010200130013",
+                "010300130003",
+                "010400130003",
+                "010500130013",
+                "010600130013",
+        };
+
         // 上位机请求解析
         // 发送数据
-        MessageParser messageParser = new MessageParser("010300130003");
-        // 数据解析为字典
-        Map<String, Character> map = messageParser.getStringMap();
-        // 数据处理
-        MessageHandle messageHandle = new MessageHandle(map.get("从机地址"), map.get("功能码"),
-                map.get("起始地址"), map.get("请求长度"), clientData);
-        messageHandle.run();
+        MessageParser messageParser = new MessageParser();
+        StringBuilder sb = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
 
-
+        for (int i = 0; i < testSend.length; i++) {
+            System.out.println("测试" + (i + 1));
+            sb.delete(0, sb.length());
+            sb.append(testSend[i]);
+            sb.append(CrcCheck.crc16(testSend[i]));
+            messageParser.setRequest(sb.toString());
+            System.out.println("发送 " + sb.toString());
+            // 数据解析为字典
+            Map<String, Character> map = messageParser.getStringMap();
+            // 数据处理
+            MessageHandle messageHandle = new MessageHandle(map.get("从机地址"), map.get("功能码"),
+                    map.get("起始地址"), map.get("请求长度"), clientData);
+            stringBuilder.delete(0,stringBuilder.length());
+            stringBuilder.append(messageHandle.packResponse());
+            stringBuilder.append(CrcCheck.crc16(messageHandle.packResponse()));
+            System.out.println("应答 " + stringBuilder.toString());
+        }
     }
 }

@@ -21,8 +21,13 @@ public class MessageParser {
         preHandle();
     }
 
+    public MessageParser(){
+        ;
+    }
+
     public void setRequest(String request) {
         this.request = request;
+        preHandle();
     }
 
     public void preHandle() {
