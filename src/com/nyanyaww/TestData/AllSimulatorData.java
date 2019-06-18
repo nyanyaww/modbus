@@ -52,20 +52,20 @@ public class AllSimulatorData {
         return inputRegisterData;
     }
 
-//    public static void main(String[] args) {
-//        AllSimulatorData allSimulatorData = new AllSimulatorData();
-//        Map<String,char[]> ans = allSimulatorData.getClientData();
-//        for (int i = 0; i < 2000; i++) {
-//            System.out.print(Integer.valueOf(ans.get("线圈")[i]));
-//            System.out.print(" ");
-//            System.out.print(Integer.valueOf(ans.get("离散量输入")[i]));
-//            System.out.println();
-//        }
-//        for (int i = 0; i < 125; i++) {
-//            System.out.print(Integer.valueOf(ans.get("保持寄存器")[i]));
-//            System.out.print(" ");
-//            System.out.print(ans.get("输入寄存器")[i]);
-//            System.out.println();
-//        }
-//    }
+    public static void main(String[] args) {
+        AllSimulatorData allSimulatorData = new AllSimulatorData();
+        Map<String,char[]> ans = allSimulatorData.getClientData();
+        for (int i = 0; i < 2000; i++) {
+            System.out.print(Integer.valueOf(ans.get("线圈")[i]));
+            System.out.print(" ");
+            System.out.print(Integer.valueOf(ans.get("离散量输入")[i]));
+            System.out.println();
+        }
+        for (int i = 0; i < 125; i++) {
+            System.out.print(Integer.valueOf(ans.get("保持寄存器")[i]));
+            System.out.print(" ");
+            System.out.print(Integer.valueOf(ans.get("输入寄存器")[i]));
+            System.out.println();
+        }
+    }
 }

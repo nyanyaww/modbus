@@ -1,14 +1,15 @@
 package com.nyanyaww.Protocol.Message;
 
 import com.nyanyaww.Protocol.Response.ReadCoilsResponse;
+import com.nyanyaww.Protocol.Response.ReadDiscreteInputResponse;
 import com.nyanyaww.Protocol.Response.ReadHoldingRegisterResponse;
+import com.nyanyaww.Protocol.Response.ReadInputRegister;
 import com.nyanyaww.TestData.AllSimulatorData;
 import com.nyanyaww.Util.StringUtil;
 import com.nyanyaww.code.FunctionCode;
 import com.nyanyaww.Protocol.Request.WriteCoilRequest;
 import com.nyanyaww.Protocol.Request.WriteRegisterRequest;
 
-import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -24,6 +25,9 @@ public class MessageHandle {
     private char startAddr;         // 起始地址
     private char dataLength;        // 数据长度
     static private char[] allCoilsData;
+    static private char[] allDiscreteInputData;
+    static private char[] allHoldRegisterData;
+    static private char[] allInputRegisterData;
 
 
     public MessageHandle(char clientId, char functionCode, char startAddr, char dataLength, Map<String, char[]> clientData) {
@@ -33,10 +37,14 @@ public class MessageHandle {
         this.dataLength = dataLength;
         this.clientData = clientData;
         allCoilsData = clientData.get("线圈");
+        allDiscreteInputData = clientData.get("离散量输入");
+        allHoldRegisterData = clientData.get("保持寄存器");
+        allInputRegisterData = clientData.get("输入寄存器");
     }
 
     public void run() {
         switch (functionCode) {
+            // 完成
             case FunctionCode.READ_COILS:
                 // 先得到线圈对应的二进制的字符串
                 String coilsData = getCoilsData(startAddr, startAddr + dataLength);
@@ -46,22 +54,36 @@ public class MessageHandle {
                         ans);
                 System.out.println(readCoilsResponse.toString());
                 break;
+            // 完成
             case FunctionCode.READ_DISCRETE_INPUTS:
-                System.out.println("0x02");
+                // 先得到线圈对应的二进制的字符串
+                String discreteInputsData = getDiscreteInputsData(startAddr, startAddr + dataLength);
+                String discreteInputsHexData = StringUtil.binaryStringToHexString(discreteInputsData);
+                assert discreteInputsHexData != null;
+                char[] ans1 = StringUtil.StringToCharX(discreteInputsHexData);
+                ReadDiscreteInputResponse readDiscreteInputResponse = new ReadDiscreteInputResponse(clientId,
+                        ans1);
+                System.out.println(readDiscreteInputResponse.toString());
                 break;
             case FunctionCode.READ_HOLDING_REGISTERS:
-                char[] holdRegister = {clientData.get("保持寄存器")[0]};
+                char[] holdRegister = getHoldRegisterData(startAddr, startAddr + dataLength);
                 ReadHoldingRegisterResponse readHoldingRegisterResponse =
                         new ReadHoldingRegisterResponse(clientId, holdRegister);
                 System.out.println(readHoldingRegisterResponse.toString());
                 break;
             case FunctionCode.READ_INPUT_REGISTERS:
-                System.out.println("0x04");
+                char[] inputRegister = getInputRegisterData(startAddr, startAddr + dataLength);
+                ReadInputRegister readInputRegister =
+                        new ReadInputRegister(clientId, inputRegister);
+                System.out.println(readInputRegister.toString());
                 break;
+
+            // 完成
             case FunctionCode.WRITE_COIL:
                 WriteCoilRequest writeCoilRequest = new WriteCoilRequest(clientId, startAddr, dataLength);
                 System.out.println(writeCoilRequest.toString());
                 break;
+            // 完成
             case FunctionCode.WRITE_REGISTER:
                 WriteRegisterRequest writeRegisterRequest = new WriteRegisterRequest(clientId, startAddr, dataLength);
                 System.out.println(writeRegisterRequest.toString());
@@ -86,6 +108,8 @@ public class MessageHandle {
         }
     }
 
+    // 获取仿真数据
+    // 获取线圈数据
     public String getCoilsData(int from, int to) {
         int length = to - from;
         int charLength = length % 8;
@@ -103,6 +127,42 @@ public class MessageHandle {
         return sb.toString();
     }
 
+    // 获取离散输入数据
+    public String getDiscreteInputsData(int from, int to) {
+        int length = to - from;
+        int charLength = length % 8;
+        if (charLength == 0)
+            charLength = 8;
+        StringBuilder sb = new StringBuilder();
+        char[] returnData = new char[length];
+        for (int i = 0; i < length; i++) {
+            returnData[i] = allDiscreteInputData[from + i];
+            sb.append(Integer.valueOf(returnData[i]));
+        }
+        for (int i = length; i < length + 8 - charLength; i++) {
+            sb.append(0);
+        }
+        return sb.toString();
+    }
+
+    // 获取保持寄存器数据
+    public char[] getHoldRegisterData(int from, int to) {
+        int length = to - from;
+        char[] returnData = new char[length];
+        for (int i = 0; i < length; i++) {
+            returnData[i] = allHoldRegisterData[from + i];
+        }
+        return returnData;
+    }
+    // 获取输入寄存器数据
+    public char[] getInputRegisterData(int from, int to) {
+        int length = to - from;
+        char[] returnData = new char[length];
+        for (int i = 0; i < length; i++) {
+            returnData[i] = allInputRegisterData[from + i];
+        }
+        return returnData;
+    }
 
     public static void main(String[] args) {
         // 获取仿真数据
@@ -110,17 +170,15 @@ public class MessageHandle {
         Map<String, char[]> clientData = allSimulatorData.getClientData();
 
         // 上位机请求解析
-        MessageParser messageParser = new MessageParser("010100130013");
+        // 发送数据
+        MessageParser messageParser = new MessageParser("010300130003");
+        // 数据解析为字典
         Map<String, Character> map = messageParser.getStringMap();
+        // 数据处理
         MessageHandle messageHandle = new MessageHandle(map.get("从机地址"), map.get("功能码"),
                 map.get("起始地址"), map.get("请求长度"), clientData);
         messageHandle.run();
 
 
-//        for (int i = 1; i < 24; i++) {
-//            String coilsData = messageHandle.getCoilsData(0, i);
-//            System.out.println(coilsData);
-//            System.out.println(StringUtil.binaryStringToHexString(coilsData));
-//        }
     }
 }

@@ -11,8 +11,8 @@ package com.nyanyaww.Protocol;
 // TODO:需要重大改动
 public class ModbusTCP {
     private char addr;
-    public ModbusTCP()
-    {
+
+    public ModbusTCP() {
         addr = 0x01;
     }
 

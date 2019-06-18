@@ -21,6 +21,10 @@ public class MessageParser {
         preHandle();
     }
 
+    public void setRequest(String request) {
+        this.request = request;
+    }
+
     public void preHandle() {
         byte[] s = HexConvert.hexStringToBytes(request);
         String dehandleString = HexConvert.binaryToHexString(s);
