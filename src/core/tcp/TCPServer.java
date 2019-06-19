@@ -109,7 +109,6 @@ public class TCPServer
 		@Override
 		public void run()
 		{
-			
 			System.out.println("新客户端连接：" + socket.getInetAddress() + " P:" + socket.getPort());
 			try
 			{
