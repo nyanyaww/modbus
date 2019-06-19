@@ -18,20 +18,15 @@ import util.Utility;
 public class TCPServer
 {
 	public static ServerSocket serverSocket = null;
-
 	// 需要更新的UI控件 即 日志显示区
 	private static TextArea textArea;
-
 	private static Map<String, String> config = null;
-
 	private static Label label;
 	// 所有被接受的socket
 	public static Set<Socket> acceptedSockets = new HashSet<Socket>();
-
 	public static void createTcpServer(String ip, String port, Map<String, String> config, TextArea textArea,Label label)
 			throws Exception
 	{
-
 		TCPServer.textArea = textArea;
 		TCPServer.config = config;
 		TCPServer.label = label;

@@ -29,11 +29,10 @@
 						<FXCollections fx:factory="observableArrayList">
 							<String fx:value="TCP Client" />
 							<String fx:value="TCP Server" />
-							<String fx:value="UDP" />
 						</FXCollections>
 					</items>
 					<value>
-						<String fx:value="UDP" />
+						<String fx:value="TCP Server" />
 					</value>
 				</ComboBox>
 				
@@ -51,7 +50,7 @@
 					minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
 				-->
 				<Label fx:id="label_port" text="端口" />
-				<TextField fx:id="textfield_port" maxWidth="150.0" prefWidth="150.0" />
+				<TextField fx:id="textfield_port" maxWidth="150.0" prefWidth="150.0" text="8086" />
 				<Button fx:id="button_connect" minHeight="30.0" mnemonicParsing="false" onAction="#doConnect" prefHeight="30.0" prefWidth="90.0" text="打开">
 					<VBox.margin>
 						<Insets left="20.0" />
@@ -159,7 +158,7 @@
 				</HBox>
 				<HBox prefHeight="162.0" prefWidth="740.0">
 					<children>
-						<TextArea fx:id="textarea_send_message" prefHeight="94.0" prefWidth="591.0" />
+						<TextArea fx:id="textarea_send_message" prefHeight="94.0" prefWidth="591.0" text="000100130013" />
 						<Button fx:id="button_send" mnemonicParsing="false" onAction="#doSendMessage" prefHeight="165.0" prefWidth="150.0" text="发送" textAlignment="CENTER" textFill="#2ba307">
 							<font>
 								<Font size="19.0" />
