@@ -19,6 +19,9 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import com.nyanyaww.Client.Client;
+import com.nyanyaww.Protocol.Message.ClientResponse;
+import com.nyanyaww.Protocol.Message.ServerRequest;
 import core.encoding.EncodingChange;
 import core.tcp.TCPClient;
 import core.tcp.TCPServer;
@@ -258,7 +261,7 @@ public class NetAssistController {
         }
     }
 
-    boolean isSending = false;
+    private boolean isSending = false;
 
     // 点击发送按钮的动作
     public void doSendMessage(ActionEvent event) {
@@ -297,8 +300,7 @@ public class NetAssistController {
                             sendMessage(message);
                             Thread.sleep(T);
                         }
-                    } catch (Exception e) {
-                        // TODO: handle exception
+                    } catch (Exception ignored) {
                     }
 
                 });
@@ -340,18 +342,20 @@ public class NetAssistController {
             boolean send_hex = Utility.string2Bollean(config.get(ConfigName.SEND_HEX));
             if (send_hex)
                 message = EncodingChange.str2Hex(message);
-            Utility.sendMessageBySocket(message, socket, config, textarea_log);
+            ServerRequest serverRequest = new ServerRequest();
+            Utility.sendMessageBySocket(serverRequest.send(message), socket, config, textarea_log);
         }
     }
 
     private void tcpClientSend(String message) {
         if (tcp_client_socket == null)
-            Utility.alertBox("发没有打开tcp client");
+            Utility.alertBox("发没有打开客户端");
         boolean send_hex = Utility.string2Bollean(config.get(ConfigName.SEND_HEX));
         if (send_hex)
             message = EncodingChange.str2Hex(message);
         Utility.sendMessageBySocket(message, tcp_client_socket, config, textarea_log);
     }
+
 
 
     // 清理发送框数据
